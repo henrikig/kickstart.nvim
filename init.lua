@@ -784,6 +784,7 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'AlexvZyl/nordic.nvim',
+    branch = 'dev',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
@@ -792,7 +793,7 @@ require('lazy').setup({
       require('nordic').load {
         -- This callback can be used to override the colors used in the palette.
         override = {
-          PmenuSel = { bg = '#CB775D' },
+          -- PmenuSel = { bg = '#CB775D' },
         },
       }
 
