@@ -1,25 +1,23 @@
-Keys = {
-  { "<leader>a",  "<cmd>lua require('harpoon.mark').add_file()<cr>",        desc = "Mark file with harpoon" },
-  { "<leader>hn", "<cmd>lua require('harpoon.ui').nav_next()<cr>",          desc = "Go to next harpoon mark" },
-  { "<leader>hp", "<cmd>lua require('harpoon.ui').nav_prev()<cr>",          desc = "Go to previous harpoon mark" },
-  { "<C-b>",      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "Show harpoon marks" },
-}
-
-for i = 1, 8 do
-  table.insert(Keys, {
-    ("<leader>%d"):format(i),
-    ("<cmd>lua require('harpoon.ui').nav_file(%d)<cr>"):format(i),
-    desc = ("Go to nav_file %d"):format(i)
-  })
-end
-
-
 return {
-  "ThePrimeagen/harpoon",
+  'ThePrimeagen/harpoon',
+  branch = 'harpoon2',
   lazy = false,
   dependencies = {
-    "nvim-lua/plenary.nvim",
+    'nvim-lua/plenary.nvim',
   },
-  config = true,
-  keys = Keys,
+  config = function()
+    local harpoon = require 'harpoon'
+    vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+    vim.keymap.set("n", "<C-b>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+    vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = 'Go to nav_file 1' })
+    vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = 'Go to nav_file 2' })
+    vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = 'Go to nav_file 3' })
+    vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = 'Go to nav_file 4' })
+    vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end, { desc = 'Go to nav_file 5' })
+    vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end, { desc = 'Go to nav_file 6' })
+    vim.keymap.set("n", "<leader>7", function() harpoon:list():select(7) end, { desc = 'Go to nav_file 7' })
+    vim.keymap.set("n", "<leader>8", function() harpoon:list():select(8) end, { desc = 'Go to nav_file 8' })
+
+  end,
 }
