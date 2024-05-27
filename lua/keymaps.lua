@@ -1,5 +1,4 @@
--- use jk to exit insert or visual mode
-vim.keymap.set('i', 'jk', '<ESC>')
+-- use jk to exit visual mode
 vim.keymap.set('v', 'jk', '<ESC>')
 
 -- Remap for dealing with word wrap
