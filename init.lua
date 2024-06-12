@@ -784,17 +784,13 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'AlexvZyl/nordic.nvim',
-    branch = 'dev',
+    'rebelot/kanagawa.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      require('nordic').load {
-        -- This callback can be used to override the colors used in the palette.
-        override = {},
-      }
+      require('kanagawa').load 'wave'
 
       -- You can configure highlights by doing something like:
       -- vim.cmd.hi 'Comment gui=none'
@@ -802,7 +798,15 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false },
+    keys = {
+      { '<leader>st', '<cmd>TodoTelescope<CR>', mode = 'n', desc = '[S]earch [T]odo' },
+    },
+  },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -843,6 +847,9 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
@@ -862,6 +869,74 @@ require('lazy').setup({
         'vim',
         'vimdoc',
         'yaml',
+      },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<C-space>',
+          node_incremental = '<C-space>',
+          scope_incremental = false,
+          node_decremental = '<bs>',
+        },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ['am'] = '@function.outer',
+            ['im'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
+            ['al'] = { query = '@loop.outer', desc = 'Select outer part of a loop' },
+            ['il'] = { query = '@loop.inner', desc = 'Select inner part of a loop' },
+            ['af'] = { query = '@call.outer', desc = 'Select outer part of a function call' },
+            ['if'] = { query = '@call.inner', desc = 'Select inner part of a function call' },
+          },
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            ['<leader>p'] = '@parameter.inner',
+            ['<leader>nm'] = '@function.outer',
+          },
+          swap_previous = {
+            ['<leader>P'] = '@parameter.inner',
+            ['<leader>pm'] = '@function.outer',
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true, -- whether to set jumps in the jumplist
+          goto_next_start = {
+            [']f'] = { query = '@call.outer', desc = 'Next function call start' },
+            [']m'] = { query = '@function.outer', desc = 'Next method/function def start' },
+            [']c'] = { query = '@class.outer', desc = 'Next class start' },
+            [']i'] = { query = '@conditional.outer', desc = 'Next conditional start' },
+            [']l'] = { query = '@loop.outer', desc = 'Next loop start' },
+          },
+          goto_next_end = {
+            [']F'] = { query = '@call.outer', desc = 'Next function call end' },
+            [']M'] = { query = '@function.outer', desc = 'Next method/function def end' },
+            [']C'] = { query = '@class.outer', desc = 'Next class end' },
+            [']I'] = { query = '@conditional.outer', desc = 'Next conditional end' },
+            [']L'] = { query = '@loop.outer', desc = 'Next loop end' },
+          },
+          goto_previous_start = {
+            ['[f'] = { query = '@call.outer', desc = 'Prev function call start' },
+            ['[m'] = { query = '@function.outer', desc = 'Prev method/function def start' },
+            ['[c'] = { query = '@class.outer', desc = 'Prev class start' },
+            ['[i'] = { query = '@conditional.outer', desc = 'Prev conditional start' },
+            ['[l'] = { query = '@loop.outer', desc = 'Prev loop start' },
+          },
+          goto_previous_end = {
+            ['[F'] = { query = '@call.outer', desc = 'Prev function call end' },
+            ['[M'] = { query = '@function.outer', desc = 'Prev method/function def end' },
+            ['[C'] = { query = '@class.outer', desc = 'Prev class end' },
+            ['[I'] = { query = '@conditional.outer', desc = 'Prev conditional end' },
+            ['[L'] = { query = '@loop.outer', desc = 'Prev loop end' },
+          },
+        },
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
