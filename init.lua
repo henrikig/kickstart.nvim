@@ -572,7 +572,7 @@ require('lazy').setup({
           filetypes = { 'markdown' },
         },
         pyright = {},
-        ruff_lsp = {},
+        ruff = {},
         rust_analyzer = {},
         terraformls = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -592,7 +592,7 @@ require('lazy').setup({
                 ['http://json.schemastore.org/github-action'] = '.github/action.{yml,yaml}',
                 ['http://json.schemastore.org/kustomization'] = 'kustomization.{yml,yaml}',
                 ['http://json.schemastore.org/chart'] = 'Chart.{yml,yaml}',
-                ['https://json.schemastore.org/dependabot-v2'] = '.github/dependabot.{yml,yaml}',
+                ['https://json.schemastore.org/dependabot-2.0'] = '.github/dependabot.{yml,yaml}',
                 ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json'] = '*docker-compose*.{yml,yaml}',
                 ['https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json'] = '*flow*.{yml,yaml}',
               },
